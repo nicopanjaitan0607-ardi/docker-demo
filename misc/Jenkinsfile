@@ -17,7 +17,6 @@ node {
         }
         withSonarQubeEnv('sonarqube') {
             sh """
-            ${scannerHome}/bin/sonar-scanner \
             sonar-scanner \
   -Dsonar.projectKey=jenkins \
   -Dsonar.sources=. \
