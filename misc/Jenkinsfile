@@ -18,7 +18,7 @@ node {
         }
         withSonarQubeEnv('sonarqube') {
             sh """
-            ${scannerHome}/bin/sonar-scanner
+            ${scannerHome}/bin/sonar-scanner \
             -Dsonar.projectKey=4ef1ab3d979cd578b5f853d5bcbd1ee6210ab9ec \
    -Dsonar.sources=. \
         """
