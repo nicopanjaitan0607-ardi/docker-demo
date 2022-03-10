@@ -11,17 +11,18 @@ node {
        sh 'npm test'
      }
    }
-   
-        stage('Clone sources') {
-                git branch: 'master', url: 'https://github.com/nicopanjaitan0607-ardi/docker-demo.git'
+   stage('SonarQube analysis') {
+    steps{
+        script {
+            scannerHome = tool 'SonarQube';
         }
-        stage('SonarQube analysis') {
-           
-                withSonarQubeEnv('sonarqube') {
-                    sh "./gradlew sonarqube"
-              
-            }
+        withSonarQubeEnv('SonarQube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+            -Dsonar.projectKey=4ef1ab3d979cd578b5f853d5bcbd1ee6210ab9ec \
+   -Dsonar.sources=. \
         }
+    }
+}
         stage("Quality gate") {
          
                 waitForQualityGate abortPipeline: true
