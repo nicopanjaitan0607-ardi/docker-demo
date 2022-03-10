@@ -18,8 +18,11 @@ node {
         withSonarQubeEnv('sonarqube') {
             sh """
             ${scannerHome}/bin/sonar-scanner \
-            -Dsonar.projectKey=4ef1ab3d979cd578b5f853d5bcbd1ee6210ab9ec \
-   -Dsonar.sources=. \
+            sonar-scanner \
+  -Dsonar.projectKey=jenkins \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://192.168.56.102:9000 \
+  -Dsonar.login=4ef1ab3d979cd578b5f853d5bcbd1ee6210ab9ec
         """
         }
     }
