@@ -30,3 +30,24 @@
    }                                       
 }            
 */
+node {
+    def myGradleContainer = docker.image('gradle:jdk8-alpine')
+    myGradleContainer.pull()
+
+    stage('prep') {
+        git url: 'https://github.com/wardviaene/gs-gradle.git'
+    }
+
+    stage('build') {
+      myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
+        sh 'cd complete && /opt/gradle/bin/gradle build'
+      }
+    }
+
+    stage('sonar-scanner') {
+      def sonarqubeScannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+      withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarLogin')]) {
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://192.168.56.102:9000 -Dsonar.login=f2a903bf5195de73f6d06c76ecd5b44204190831 -Dsonar.projectName=jenkins -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=jenkins -Dsonar.sources=complete/src/main/ -Dsonar.tests=complete/src/test/ -Dsonar.language=java -Dsonar.java.binaries=."
+      }
+    }
+}
