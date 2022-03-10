@@ -12,7 +12,6 @@ node {
      }
    }
    stage('SonarQube analysis') {
-    steps{
         script {
             scannerHome = tool 'sonarqube';
         }
@@ -26,9 +25,7 @@ node {
     }
 }
         stage("Quality gate") {
-         
                 waitForQualityGate abortPipeline: true
-           
         }
    stage('docker build/push') {
      docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
