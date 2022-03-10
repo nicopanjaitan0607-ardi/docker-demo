@@ -23,7 +23,6 @@ node {
         """
         }
     }
-}
         stage("Quality gate") {
                 waitForQualityGate abortPipeline: true
         }
