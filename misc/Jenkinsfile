@@ -14,12 +14,13 @@ node {
    stage('SonarQube analysis') {
     steps{
         script {
-            scannerHome = tool 'SonarQube';
+            scannerHome = tool 'sonarqube';
         }
-        withSonarQubeEnv('SonarQube') {
-            sh "${scannerHome}/bin/sonar-scanner"
+        withSonarQubeEnv('sonarqube') {
+            sh """${scannerHome}/bin/sonar-scanner
             -Dsonar.projectKey=4ef1ab3d979cd578b5f853d5bcbd1ee6210ab9ec \
    -Dsonar.sources=. \
+        """
         }
     }
 }
