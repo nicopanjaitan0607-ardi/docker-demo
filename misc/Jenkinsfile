@@ -11,7 +11,7 @@ node {
        sh 'npm test'
      }
    }
-  stage('SonarQube analysis') {
+ /* stage('SonarQube analysis') {
         script {
             scannerHome = tool 'sonarqube';
         }
@@ -24,14 +24,13 @@ node {
   -Dsonar.login=fc10e93d7010fb7107635563ec693c0a96eb38eb
         """
         }
-    }
-   /*stage('sonar-scanner') {
+    } */
+   stage('sonar-scanner') {
       def sonarqubeScannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
       withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarLogin')]) {
-        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://192.168.100.18:9000 -Dsonar.login=fc10e93d7010fb7107635563ec693c0a96eb38eb -Dsonar.projectName=jenkins -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=jenkins -Dsonar.sources=complete/src/main/ -Dsonar.tests=complete/src/test/ -Dsonar.language=java -Dsonar.java.binaries=."
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://192.168.100.18:9000 -Dsonar.login=fc10e93d7010fb7107635563ec693c0a96eb38eb -Dsonar.projectName=jenkins -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=jenkins -Dsonar.language=java -Dsonar.java.binaries=."
       }
     }
-*/
         stage("Quality gate") {
                 waitForQualityGate abortPipeline: true
         }
