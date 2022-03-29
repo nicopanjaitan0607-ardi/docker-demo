@@ -38,6 +38,6 @@ node {
     }
    
    stage('docker build/push') {
-       def app = docker.build("ce318002/jenkins-docker:${commit_id}", '.').push()
+       def app = docker.build("ce318002/jenkins-docker:${commit_id}", '.')
    }
 }
