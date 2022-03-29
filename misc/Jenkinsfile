@@ -25,12 +25,12 @@ node {
         """
         }
     } */
-   stage('sonar-scanner') {
+   /*stage('sonar-scanner') {
       def sonarqubeScannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
       withCredentials([string(credentialsId: 'sonarqube', variable: 'sonarLogin')]) {
         sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://192.168.100.20:9000 -Dsonar.login=52ee6a34b6c78beee00ce12cbd4ae6a449f4bb93 -Dsonar.projectName=jenkins -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=jenkins -Dsonar.language=java -Dsonar.java.binaries=."
       }
-    }
+    }*/
    /*
    stage('Initialize'){
         def dockerHome = tool 'docker'
