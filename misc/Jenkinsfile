@@ -32,10 +32,10 @@ node {
       }
     }*/
   
-   stage('Initialize'){
+   /*stage('Initialize'){
         def dockerHome = tool 'docker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
-    }
+    }*/
    
    stage('docker build/push') {
        def app = docker.build("ce318002/jenkins-docker:${commit_id}", '.')
